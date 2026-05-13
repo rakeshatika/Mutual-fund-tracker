@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Background Layers */
+  --bg-primary:    #050810;
+  --bg-secondary:  #090d18;
+  --bg-card:       #0d1220;
+  --bg-card-hover: #111828;
+  --bg-glass:      rgba(13, 18, 32, 0.72);
+
+  /* Borders */
+  --border:        #1a2540;
+  --border-subtle: #111828;
+  --border-glow:   rgba(99, 179, 237, 0.18);
+
+  /* Brand Accent — teal-green */
+  --accent:        #00e5b8;
+  --accent-dim:    rgba(0, 229, 184, 0.10);
+  --accent-glow:   rgba(0, 229, 184, 0.22);
+  --accent-hover:  #00ffcc;
+
+  /* Secondary Accent — indigo-blue */
+  --accent2:       #6366f1;
+  --accent2-dim:   rgba(99, 102, 241, 0.12);
+
+  /* Status */
+  --accent-red:    #f43f5e;
+  --accent-red-dim:rgba(244, 63, 94, 0.12);
+  --accent-yellow: #f59e0b;
+  --accent-blue:   #3b82f6;
+
+  /* Text */
+  --text-primary:  #e2eaf8;
+  --text-secondary:#7a90b8;
+  --text-muted:    #3d5070;
+
+  /* Typography */
+  --font-display:  'Inter', sans-serif;
+  --font-mono:     'JetBrains Mono', monospace;
+
+  /* Shape */
+  --radius:        10px;
+  --radius-lg:     16px;
+  --radius-xl:     22px;
+
+  /* Motion */
+  --transition:    0.18s ease;
+  --transition-lg: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Reset ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ─── Utilities ─────────────────────────────────── */
+.mono { font-family: var(--font-mono); }
+
+/* ─── Animations ─────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50%       { box-shadow: 0 0 28px 6px var(--accent-glow); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gradientFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+.animate-in {
+  animation: fadeInUp 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade {
+  animation: fadeIn 0.3s ease both;
+}
+
+/* ─── Skeleton loader ────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--bg-card) 25%,
+    var(--bg-card-hover) 50%,
+    var(--bg-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+  border-radius: 6px;
+}
+
+/* ─── Global input focus glow ───────────────────── */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* ─── Button base ───────────────────────────────── */
+button {
+  font-family: var(--font-display);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+button:active { transform: scale(0.97); }
