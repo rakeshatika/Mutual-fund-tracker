@@ -3,6 +3,7 @@ package com.mftracker.controller;
 import com.mftracker.model.Fund;
 import com.mftracker.service.FundService;
 import jakarta.validation.Valid;
+import org.springframework.lang.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class FundController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Fund> getFundById(@PathVariable Long id) {
+    public ResponseEntity<Fund> getFundById(@PathVariable @NonNull Long id) {
         return fundService.getFundById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

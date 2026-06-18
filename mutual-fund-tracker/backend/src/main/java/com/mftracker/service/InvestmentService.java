@@ -50,6 +50,7 @@ public class InvestmentService {
     public List<InvestmentResponse> getUserInvestments(Long userId) {
         return investmentRepository.findByUserIdOrderByIdDesc(userId)
                 .stream()
+                .filter(i -> i.getFund() != null)
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
@@ -78,10 +79,14 @@ public class InvestmentService {
     private InvestmentResponse mapToResponse(Investment inv) {
         InvestmentResponse res = new InvestmentResponse();
         res.setId(inv.getId());
-        res.setFundId(inv.getFund().getId());
-        res.setFundName(inv.getFund().getName());
-        res.setFundCategory(inv.getFund().getCategory());
-        res.setRiskLevel(inv.getFund().getRiskLevel());
+        if (inv.getFund() != null) {
+            res.setFundId(inv.getFund().getId());
+            res.setFundName(inv.getFund().getName());
+            res.setFundCategory(inv.getFund().getCategory());
+            res.setRiskLevel(inv.getFund().getRiskLevel());
+        } else {
+            res.setFundName("Unknown Fund (Deleted)");
+        }
         res.setUnits(inv.getUnits());
         res.setInvestedAmount(inv.getInvestedAmount());
         res.setCurrentValue(inv.getCurrentValue());

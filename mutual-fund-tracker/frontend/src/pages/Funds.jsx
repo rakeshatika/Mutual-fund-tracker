@@ -29,8 +29,14 @@ export default function Funds() {
       if (activeCategory !== 'All') params.category = activeCategory;
       if (search.trim()) params.search = search.trim();
       const { data } = await fundsAPI.getAll(params);
-      setFunds(data);
-    } catch {
+      if (Array.isArray(data)) {
+        setFunds(data);
+      } else {
+        console.error('Expected array for funds but received:', data);
+        setFunds([]);
+      }
+    } catch (err) {
+      console.error('Error loading funds:', err);
       toast.error('Failed to load funds');
     } finally {
       setLoading(false);

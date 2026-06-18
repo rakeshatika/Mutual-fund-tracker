@@ -3,6 +3,7 @@ package com.mftracker.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class User {
     @Column
     private String role = "USER"; // "USER" or "ADMIN"
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Investment> investments;
 

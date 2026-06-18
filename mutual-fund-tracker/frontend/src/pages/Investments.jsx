@@ -18,18 +18,24 @@ export default function Investments() {
 
   const loadData = async () => {
     setLoading(true);
+    
     try {
-      const [invRes, fundRes] = await Promise.all([
-        investmentsAPI.getAll(),
-        fundsAPI.getAll(),
-      ]);
-      setInvestments(invRes.data);
-      setFunds(fundRes.data);
-    } catch {
-      toast.error('Failed to load data');
-    } finally {
-      setLoading(false);
+      const invRes = await investmentsAPI.getAll();
+      setInvestments(Array.isArray(invRes.data) ? invRes.data : []);
+    } catch (err) {
+      console.error('Error loading investments:', err);
+      toast.error('Failed to load investments');
     }
+
+    try {
+      const fundRes = await fundsAPI.getAll();
+      setFunds(Array.isArray(fundRes.data) ? fundRes.data : []);
+    } catch (err) {
+      console.error('Error loading funds:', err);
+      toast.error('Failed to load funds library');
+    }
+
+    setLoading(false);
   };
 
   useEffect(() => { loadData(); }, []);

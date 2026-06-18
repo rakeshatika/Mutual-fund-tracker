@@ -18,7 +18,9 @@ public class DashboardService {
     private InvestmentRepository investmentRepository;
 
     public DashboardSummary getSummary(Long userId) {
-        List<Investment> investments = investmentRepository.findByUserId(userId);
+        List<Investment> investments = investmentRepository.findByUserId(userId).stream()
+                .filter(i -> i.getFund() != null)
+                .collect(Collectors.toList());
 
         BigDecimal totalInvested = investments.stream()
                 .map(Investment::getInvestedAmount)
